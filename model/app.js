@@ -16,7 +16,7 @@ app.get("/db", (req,res) =>{
         if(!err){
             res.send(result);
         } else {
-            res.status(500).send(`overcome your lack of skill lol`)
+            res.status(500).send(`lol overcome the skill gap you have`)
         }
     })    
 })

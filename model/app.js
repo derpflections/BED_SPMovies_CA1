@@ -5,18 +5,23 @@ var urlencodedParser = bodyParser.urlencoded({extended: false})
 var storeDB = require("../model/user.js");
 var hostname = 'localhost';
 var port = 3000;
-
+const err = {error_msg:"Internal Server Error"}
 
 app.use(bodyParser.json());
 app.use(urlencodedParser);
 
 
-app.get("/db", (req,res) =>{
-    storeDB.getActor((err, result) => {
-        if(!err){
-            res.send(result);
+app.get("/actors/:actor_id", (req,res) =>{
+    var actor_id = req.params.actor_id
+    storeDB.getActor(actor_id, (err, result) => {
+        console.log(result)
+        if(err){
+            res.status(500).send(`Internal server error`)
+        } else if (result === null) {
+            res.status(204).send(`No content. Record of given actor_id cannot be found.`)
+            console.log(`No content. Record of given actor_id cannot be found.`)
         } else {
-            res.status(500).send(`lol overcome the skill gap you have`)
+            res.send(result);
         }
     })    
 })

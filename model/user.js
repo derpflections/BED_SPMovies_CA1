@@ -15,15 +15,11 @@ var storeDB = {
                     conn.end();
                     if(err){
                         console.log(err);
-                        console.log('1')
                         return callback(err, null);
                     } else if (res[0] === undefined){
-                        console.log(`No record of given actor_id`)
-                        console.log('2')
                         return callback (null, null)
                     } else {
                         console.log(res[0])
-                        console.log('3')
                         return callback (null, res[0])
                     }
                 })

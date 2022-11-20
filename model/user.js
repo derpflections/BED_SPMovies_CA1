@@ -25,6 +25,33 @@ var storeDB = {
                 })
             }
         })
+    },
+
+    addActor: (actor_details, callback) => {
+        var conn = db.getConnection()
+        conn.connect((err) => {
+            if(err){ 
+                console.log(err)
+                return callback(err, null)
+            } else {
+                console.log(actor_details)
+                console.log("Connected!")
+                var sql = `INSERT INTO actor (first_name , last_name) VALUES (?, ?)`
+                if (actor_details.first_name == '' || actor_details.last_name == ''){
+                    return callback (null, 400)
+                } else {
+                    conn.query(sql, [actor_details.first_name.toUpperCase(), actor_details.last_name.toUpperCase()], (err, res) => {
+                        conn.end()
+                        if(err){
+                            console.log(err)
+                            return callback (err, null)
+                        } else {
+                            return callback (null, res)
+                        }
+                    })
+                }
+            }
+        })
     }
 }
 

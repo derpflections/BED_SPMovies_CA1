@@ -2,7 +2,7 @@ var express = require('express');
 var app = express()
 var bodyParser = require('body-parser')
 var urlencodedParser = bodyParser.urlencoded({extended: false})
-var storeDB = require("../model/user.js");
+var storeDB = require("../model/actor.js");
 var hostname = 'localhost';
 var port = 3000;
 app.use(bodyParser.json());

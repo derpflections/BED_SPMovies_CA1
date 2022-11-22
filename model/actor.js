@@ -9,7 +9,7 @@ var storeDB = {
                 console.log(err);
                 return callback(err, null)
             } else {
-                console.log("Connected!")
+                console.log("Connected to database!")
                 var sql = `SELECT actor_id, first_name, last_name FROM actor WHERE actor_id = ?`
                 conn.query(sql, actor_id, (err,res) =>{
                     conn.end();
@@ -34,8 +34,7 @@ var storeDB = {
                 console.log(err)
                 return callback(err, null)
             } else {
-                console.log(actor_details)
-                console.log("Connected!")
+                console.log(`Connected to database!`)
                 var sql = `INSERT INTO actor (first_name , last_name) VALUES (?, ?)`
                 if (actor_details.first_name == '' || actor_details.last_name == ''){
                     return callback (null, 400)

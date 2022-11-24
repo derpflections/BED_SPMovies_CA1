@@ -19,13 +19,14 @@ var storeDB = {
                     } else if (res[0] === undefined){
                         return callback (null, null)
                     } else {
-                        console.log(res[0])
+                        res[0]['actor_id'] = res[0]['actor_id'].toString()
                         return callback (null, res[0])
                     }
                 })
             }
         })
     },
+
 
     addActor: (actor_details, callback) => {
         var conn = db.getConnection()

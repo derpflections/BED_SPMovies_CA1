@@ -1,5 +1,4 @@
-
-    var express = require('express');
+var express = require('express');
 var app = express()
 var bodyParser = require('body-parser')
 var urlencodedParser = bodyParser.urlencoded({extended: false})
@@ -35,13 +34,12 @@ app.post("/actors", (req, res) =>{
         } else if (result == 400){
             res.status(400).json({'error_msg':'missing data'}) //sends error msg in json format w/ err 400
         } else {
-            res.status(201).json({'actor_id': result.insertId}) //sends successful msg
+            res.status(201).json({'actor_id': result.insertId.toString()}) //sends successful msg
         }
     })
 
 })
 
 
-app.listen(port, hostname,() =>{
-    console.log(`Store database hosted at http://${hostname}:${port}`)
-})
+
+module.exports = app

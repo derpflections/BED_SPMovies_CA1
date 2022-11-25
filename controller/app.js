@@ -1,10 +1,15 @@
+//Name: Lee Hong Yi
+//Admin Number: 2223010
+//Class: DAAA/FT/1B/05
+
+
 var express = require('express');
 var app = express()
 var bodyParser = require('body-parser')
 var urlencodedParser = bodyParser.urlencoded({extended: false})
 var storeDB = require("../model/actor.js");
-var hostname = 'localhost';
-var port = 3000;
+//var hostname = 'localhost';
+//var port = 3000;
 app.use(bodyParser.json());
 app.use(urlencodedParser);
 

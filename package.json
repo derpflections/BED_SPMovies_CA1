@@ -1,10 +1,10 @@
 {
   "name": "a_ca1",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +12,7 @@
     "body-parser": "^1.20.1",
     "express": "^4.18.2",
     "mysql": "^2.18.1"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }

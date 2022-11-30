@@ -20,23 +20,26 @@ app.get("/actors/:actor_id", (req,res) =>{
     storeDB.getActor(actor_id, (err, result) => {
         if(err){
             res.status(500).json({"error_msg":"Internal Server Error"}); //sends error message in json format
-        } else if (result === null) {
+        } else if (result === 204) {
             res.status(204).send(`No content. Record of given actor_id cannot be found.`)
             console.log(`No content. Record of given actor_id cannot be found.`) //prints error message to console
         } else {
-            res.send(result); //sends result to postman/user.
+            res.status(200).send(result); //sends result to postman/user.
         }
     })    
 })
 
+//endpoint 2 
 app.get('/actors', (req, res) =>{
     var limit = req.query.limit
     var offset = req.query.offset
     storeDB.getActorOrder(limit, offset, (err, result) =>{
         if(err){
-            res.status(500).json({"error_msg":"Internal Server Error"})
+            res.status(500).json({"error_msg":"Internal Server Error"})//sends error message in json format
+        } else if (result === 400){
+            res.status(500).json({"error_msg":"Internal Server Error"})//sends error message in json format
         } else {
-            res.status(200).send(result)
+            res.status(200).send(result) //sends result to postman/user
         }
     })
 })

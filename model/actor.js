@@ -21,7 +21,7 @@ var storeDB = {
                         console.log(err);
                         return callback(err, null);
                     } else if (res[0] === undefined){
-                        return callback (null, null)
+                        return callback (null, 204)
                     } else {
                         res[0]['actor_id'] = res[0]['actor_id'].toString()
                         return callback (null, res[0])
@@ -44,6 +44,8 @@ var storeDB = {
                     if(err){
                         console.log(err)
                         return callback(err, null)
+                    } else if (limit == undefined || limit == "" || offset == undefined || offset == "") { 
+                        return callback (null, 400)
                     } else {
                         for(i = 0 ; i < res.length ; i++){
                             res[i].actor_id = res[i].actor_id.toString() 

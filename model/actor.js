@@ -4,6 +4,10 @@
 
 var db = require("./databaseConfig.js")
 
+function bodyChecker (var1, var2){
+    return (var1 == undefined || var1 == "" || var2 == undefined || var2 == "")
+}
+
 
 var storeDB = {
     getActor:(actor_id, callback) => {
@@ -44,7 +48,7 @@ var storeDB = {
                     if(err){
                         console.log(err)
                         return callback(err, null)
-                    } else if (limit == undefined || limit == "" || offset == undefined || offset == "") { 
+                    } else if (bodyChecker(limit, offset)) { 
                         return callback (null, 400)
                     } else {
                         for(i = 0 ; i < res.length ; i++){
@@ -66,7 +70,7 @@ var storeDB = {
             } else {
                 console.log(`Connected to database!`)
                 var sql = `INSERT INTO actor (first_name , last_name) VALUES (?, ?)`    
-                if (actor_details.first_name == '' || actor_details.last_name == '' || actor_details.first_name == undefined || actor_details.last_name == undefined){
+                if (bodyChecker(actor_details.first_name, actor_details.last_name)){
                     return callback (null, 400)
                 } else {
                     conn.query(sql, [actor_details.first_name.toUpperCase(), actor_details.last_name.toUpperCase()], (err, res) => {

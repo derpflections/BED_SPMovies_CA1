@@ -3,13 +3,12 @@
 //Class: DAAA/FT/1B/05
 
 
-var express = require('express');
-var app = express()
-var bodyParser = require('body-parser')
-var urlencodedParser = bodyParser.urlencoded({extended: false})
-var storeDB = require("../model/actor.js");
-//var hostname = 'localhost';
-//var port = 3000;
+const express = require('express');
+const app = express()
+const bodyParser = require('body-parser')
+const urlencodedParser = bodyParser.urlencoded({extended: false})
+const storeDB = require("../model/actor.js");
+
 app.use(bodyParser.json());
 app.use(urlencodedParser);
 

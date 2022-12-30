@@ -63,8 +63,10 @@ app.put("/actors/:actor_id", (req, res) => {
     var actor_details = req.body
     console.log(actor_details)
     storeDB.updateActor(actor_id, actor_details, (err, result) => {
-        if (err) {
+        if (err){
             res.status(500).json({ "error_msg": "Internal server error" })
+        } else if (result == 400) {
+            res.status(400).json({"error_msg":"missing data"})
         } else if (result == 204) {
             res.status(204).send(`No Content. Record of given actor_id cannot be found.`)
         } else {
@@ -125,5 +127,58 @@ app.get("/customer/:customer_id/payment", (req, res) => {
         }
     })
 })
+
+//endpoint 8
+app.post("/customers", (req, res) =>{
+    var details = req.body
+    var address = details.address
+    storeDB.postNewCustomer(details, address, (err, result) =>{
+        if (err){
+            res.status(500).json({ "error_msg": "Internal server error" })
+        }else if (result == 400){
+            res.status(400).json({"error_msg":"missing data"})
+        } else if (result == 1062){
+            res.status(409).send({"error_msg":"email already exist"})
+        } else {
+            res.status(201).json({"customer_id":result.insertId.toString()})
+        }
+    })
+})
+
+//endpoint 9
+app.post("/country", (req, res) =>{
+    var country = req.body.country
+    var city = req.body.city
+    storeDB.postNewLocation(country, city, (err, result) =>{
+        if (err){
+            res.status(500).json({ "error_msg": "Internal server error" })
+        } else if (result == 400){
+            res.status(400).json({"error_msg":"missing data"})
+        } else if (result == 409){
+            res.status(409).json({"error_msg":"Geographic location already present in system!"})
+        } else {
+            res.status(201).json({"cityID":result[1].toString(), "countryID":result[2].toString()})
+        }
+    })
+})
+
+//endpoint 10 => post new staff? (link staff to address to store_id)
+app.post("/staff", (req, res) =>{
+    var details = req.body
+    var address = details.address
+    storeDB.postNewStaff(details, address, (err, result) =>{
+        if (err){
+            res.status(500).json({ "error_msg": "Internal server error" })
+        } else if (result == 400){
+            res.status(400).json({"error_msg":"missing data"})
+        } else {
+            res.status(201).json({"insertID":result.insertId
+        })
+        }
+    })    
+})
+
+
+
 
 module.exports = app

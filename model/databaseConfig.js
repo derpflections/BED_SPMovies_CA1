@@ -10,7 +10,8 @@ var dbconnect = {
             host:"localhost",
             user: "bed_dvd_root",
             password: "pa$$woRD123",
-            database:"bed_dvd_db"
+            database:"bed_dvd_db",
+            multipleStatements: true //allows multiline queries to be made.
         })
         return conn;
     }

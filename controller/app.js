@@ -143,7 +143,7 @@ app.post("/customers", (req, res) =>{
     })
 })
 
-//endpoint 9
+//endpoint 9 -> posting new city and country
 app.post("/country", (req, res) =>{
     var country = req.body.country
     var city = req.body.city
@@ -160,7 +160,7 @@ app.post("/country", (req, res) =>{
     })
 })
 
-//endpoint 10 => post new staff? (link staff to address to store_id)
+//endpoint 10 -> posting new staff
 app.post("/staff", (req, res) =>{
     var details = req.body
     var address = details.address

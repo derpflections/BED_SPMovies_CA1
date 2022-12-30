@@ -222,14 +222,17 @@ var storeDB = {
                     return callback(err, null) //returns null if error is present.
                 } else {
                     console.log(`Connected to database!`)
-                    var sql = `SELECT * FROM customer WHERE email = ?`
-                    conn.query(sql, details.email, (err, res) => { // this query checks if the email is already present in the system.
+                    var sql = `SELECT * FROM customer WHERE email = ? ; SELECT * FROM city WHERE city_id = ?`
+                    conn.query(sql, [details.email, address.city_id], (err, res) => { // this query checks if the email is already present in the system.
                         if (err) {
                             console.log(err)
                             return callback(err, null) //returns null if error is present.
-                        } else if (res.length != 0) {
+                        } else if (res[0].length != 0) { // this executes if the customer email is already present in the database.
                             console.log(`Duplicate email detected!`)
                             return callback(null, 1062)
+                        } else if (res[1].length == 0){ // this executs if the city is not present in database.
+                            console.log(`City ID does not exist in database!`)
+                            return callback(null, 400)
                         } else {
                             var sql = `INSERT INTO address (address, address2, district, city_id, postal_code, phone) VALUES (?,?,?,?,?,?)` // this query inserts address into the system
                             conn.query(sql, [address.address_line1, address.address_line2, address.district, address.city_id, address.postal_code, address.phone], (err, res) => { 
@@ -242,8 +245,8 @@ var storeDB = {
                                     conn.query(sql, [details.store_id, details.first_name, details.last_name, details.email, newAddrId], (err, res) => {
                                         conn.end()
                                         if (err) {
-                                            if (err.errno == 1062) {
-                                                return callback(null, 1062)
+                                            if (err.errno == 1062) { //this clause executes if the email is already present in the system. (second layer of detection)
+                                                return callback(null, 1062) //returns error w/ code 1062.
                                             } else {
                                                 return callback(err, null) //returns null if error is present.
                                             }

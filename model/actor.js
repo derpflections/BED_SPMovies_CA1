@@ -263,7 +263,7 @@ var storeDB = {
         }
     },
 
-    //endpoint 9
+    //endpoint 9 -> posting new country/city
     postNewLocation: (country, city, callback) => {
         if (country == "" || country == undefined || city == "" || country == undefined) { // this if clause checks if there is missing data.
             console.log(`Missing data!`)
@@ -329,7 +329,7 @@ var storeDB = {
         }
     },
 
-    //endpoint 10
+    //endpoint 10 -> posting new staff into database
     postNewStaff: (details, address, callback) => {
         if (details.first_name == undefined || details.last_name == undefined || details.store_id == undefined || details.active == undefined || details.username == undefined || address.address_line1 == undefined || address.district == undefined || address.city_id == undefined || address.phone == undefined || details.first_name == "" || details.last_name == "" || details.store_id == "" || details.active == "" || details.username == "" || address.address_line1 == "" || address.district == "" || address.city_id == "" || address.phone == ""){
             console.log(`Missing data!`) //this clause checks if there is any missing data.

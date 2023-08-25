@@ -23,7 +23,7 @@ app.get("/actors/:actor_id", (req, res) => {
             res.status(204).send(`No content. Record of given actor_id cannot be found.`)
             console.log(`No content. Record of given actor_id cannot be found.`) //prints error message to console
         } else {
-            res.status(200).send(result); //sends result to postman/user.
+             res.status(200).send(result); //sends result to postman/user.
         }
     })
 })

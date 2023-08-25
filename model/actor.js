@@ -172,7 +172,7 @@ var storeDB = {
                 return callback(err, null) //returns null if error is present.
             } else {
                 console.log(`Connected to database!`)
-                var sql = `SELECT f.film_id, f.title, cat.name, f.rating, f.release_year, f.length as duration FROM film f, film_category fc, category cat WHERE f.film_id = fc.film_id AND fc.category_id = cat.category_id AND cat.category_id = ? ORDER BY film_id `
+                var sql = `SELECT f.film_id, f.title, cat.name AS category, f.rating, f.release_year, f.length as duration FROM film f, film_category fc, category cat WHERE f.film_id = fc.film_id AND fc.category_id = cat.category_id AND cat.category_id = ? ORDER BY film_id `
                 conn.query(sql, category_id, (err, res) => {
                     conn.end()
                     if (err) {
